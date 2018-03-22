@@ -1,0 +1,42 @@
+types {
+  .card {
+    margin: 0;
+    width: 100%;
+  }
+  .card-content-md {
+    padding: 5px 0px;
+    font-size: 1.4rem;
+    line-height: 1.4;
+  }
+  .card-content-ios {
+    padding: 5px 0px;
+    font-size: 1.4rem;
+    line-height: 1.4;
+  }
+  .idhead {
+    color: rgb(40, 193, 240);
+  }
+  .currentType {
+    color: #0bb9ee;
+  }
+  .otherType {
+    color: #666666;
+  }
+  .typeList {
+    background: rgba($color: #ffffff, $alpha: 1.0);
+    opacity: 1;
+    width: 90px;
+    padding: 10px;
+    position: fixed;
+    right: 5%;
+    border: 1px solid rgb(90, 90, 90); // z-index:9999;
+    text-align: center;
+    z-index:2;
+  }
+  #showMore {
+    position: relative;
+  }
+  .div{
+    background-color: white;
+}
+}

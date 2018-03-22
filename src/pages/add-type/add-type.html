@@ -1,0 +1,29 @@
+<ion-content padding>
+
+    <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <button ion-button small outline color="dark" (click)="goBack()">取消</button>
+          </ion-col>
+          <ion-col col-6 text-center  class="header">
+            类型定义和显示
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button primary small float-end (click)="finishID()">完成</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid padding text-center>
+        <ion-row>
+          <ion-col col-4>类型名称</ion-col>
+          <ion-col col-4>是否显示</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let type of allTypes">
+          <ion-col col-4 align-self-center>{{type.id}}</ion-col>
+          <ion-col col-4><button ion-button small primary>{{type.show}}</button></ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+
+</ion-content>

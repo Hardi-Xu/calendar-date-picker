@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar>
+          <button ion-button icon-only clear small color="button">
+            <ion-icon name="search"></ion-icon>
+          </button>
+    <ion-title text-center (click)=getInfo()>
+      {{indexYear}}-{{indexMonth}}
+      <ion-icon name="arrow-down" (click)="changeMode()" color="button"></ion-icon>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button text-only small color="button" (click)="getInfo()">?</button>
+      <button ion-button text-only small color="basegreen" (click)="gotoToday()" class="todayButton">今天</button>
+      <button ion-button icon-only (click)="addEvent()" color="button">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div id="isStable">
+    <div class="calendar-body">
+      <ion-grid>
+        <ion-row *ngIf="calendarMode">
+          <ion-col *ngFor="let weekday of weekNames" class="weekNames">
+            <div class="blankk"></div>
+            {{weekday}}
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!calendarMode">
+            <ion-col *ngFor="let weekday of weekNames" class="weekNames1">
+              <div class="blankk"></div>
+              {{weekday}}
+            </ion-col>
+          </ion-row>
+        <ion-row *ngIf="!calendarMode" class="week-date">
+          <ion-col *ngFor="let day of daysInThisWeek" (click)="selectDateW(day)" (swipeleft)="goToNextWeek()" (swiperight)="goToLastWeek()">
+              <div class="currentDateW" *ngIf="selectedDate === day && selectedMonth === indexMonth && selectedYear === indexYear; else otherDate">
+                  <div class="blankk"></div>{{day}}
+                  <div class="hasEvent-week-current" *ngIf="checkEvent(day)"></div>
+              </div>
+                <ng-template #otherDate class="otherDate">
+                    <div class="blankk"></div>{{day}}
+                    <div class="hasEvent-week-other" *ngIf="checkEvent(day)"></div>
+                </ng-template>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="calendarMode" class="month-date">
+          <ion-col *ngFor="let lastDay of daysInLastMonth" class="last-month" (click)="goToLastMonth()"><div class="blankk"></div>{{lastDay}}</ion-col>
+          <ion-col *ngFor="let day of daysInThisMonth" (click)="selectDate(day)" (swipeleft)="goToNextMonth()" (swiperight)="goToLastMonth()">
+              <div class="currentDateM" *ngIf="selectedDate === day && selectedMonth === indexMonth && selectedYear === indexYear; else otherDate">
+                <div class="blankk"></div>
+                {{day}}
+                <div class="hasEvent-week-other" *ngIf="checkEvent(day)"></div>
+              </div>
+              <ng-template #otherDate class="otherDate">
+                <div class="blankk"></div>
+                {{day}}
+                <div class="hasEvent-week-current" *ngIf="checkEvent(day)"></div>
+              </ng-template>
+          </ion-col>
+          <ion-col *ngFor="let nextDay of daysInNextMonth" class="next-month" (click)="goToNextMonth()"><div class="blankk"></div>{{nextDay}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <!-- ///身份、类型可用popover下拉弹出框，这里直接用div弹出// -->
+    <identity></identity>
+    <types></types>
+  </div>
+<!-- ////复制一段作为白板，方便滑动使用// -->
+  <div class="calendar-body">
+    <ion-grid>
+        <ion-row *ngIf="calendarMode">
+            <ion-col *ngFor="let weekday of weekNames" class="weekNames">{{weekday}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="!calendarMode">
+              <ion-col *ngFor="let weekday of weekNames" class="weekNames1">{{weekday}}</ion-col>
+            </ion-row>
+      <ion-row *ngIf="!calendarMode" class="calendar-date">
+        <ion-col *ngFor="let day of daysInThisWeek" (click)="selectDate(day)" (swipeleft)="goToNextWeek()" (swiperight)="goToLastWeek()">{{day}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="calendarMode" class="calendar-date">
+        <ion-col *ngFor="let lastDay of daysInLastMonth" class="last-month" (click)="goToLastMonth()">{{lastDay}}</ion-col>
+        <ion-col *ngFor="let day of daysInThisMonth" (click)="selectDate(day)" (swipeleft)="goToNextMonth()" (swiperight)="goToLastMonth()">{{day}}</ion-col>
+        <ion-col *ngFor="let nextDay of daysInNextMonth" class="next-month" (click)="goToNextMonth()">{{nextDay}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div id="blank"></div>
+  <!--/////-->
+  <div padding class="scrollable">
+    <div text-right>共有{{eventsNum}}条事项，<span style="color:#50d2c2">0</span>个新发言</div>
+  </div>
+  <ion-item *ngFor="let event of events">
+    <div padding class="eventlist">
+      <span class="name">{{event.name}}</span>
+      <span class="count">3条新发言/共十条</span>
+    </div>
+    <div padding class="eventlist">
+      <span class="description">
+        <ion-icon ios="ios-time-outline" md="md-time"></ion-icon>{{event.description}}</span>
+      <span class="modify" (click)=gotoEditEventTypePage()>类型修改</span>
+    </div>
+  </ion-item>
+</ion-content>

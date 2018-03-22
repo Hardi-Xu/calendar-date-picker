@@ -1,0 +1,19 @@
+<!-- Generated template for the IdentityComponent component -->
+<div>
+  <button ion-button small clear class="idhead">类型:</button>
+  <button ion-button small outline *ngFor="let type of typebar" color="buttongray" (click)="selectType(type)">
+    <span class="currentType" *ngIf="currentType === type; else otherType">{{type}}</span>
+    <ng-template #otherType class="otherType">{{type}}</ng-template>
+  </button>
+  <button (click)="showTypeList()" ion-button icon-only small outline color="buttongray" id="showMore">↓</button>
+
+  <button (click)="addType()" ion-button icon-only small clear color="buttongray">
+    <ion-icon ios="ios-add" md="md-add"></ion-icon>
+  </button>
+  <div class="typeList" *ngIf="showTypeMode">
+    <button ion-button small outline *ngFor="let type of typelist" color="buttongray" (click)="selectType(type)">
+      <span class="currentType" *ngIf="currentType === type; else otherType">{{type}}</span>
+      <ng-template #otherType class="otherType">{{type}}</ng-template>
+    </button>
+  </div>
+</div>

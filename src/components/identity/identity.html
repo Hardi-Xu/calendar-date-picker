@@ -1,0 +1,13 @@
+<!-- Generated template for the IdentityComponent component -->
+<div>
+    <button ion-button small clear class="idhead">身份:</button>
+    <button ion-button small outline *ngFor="let ident of identbar" color="buttongray" (click)="selectIdentity(ident)">
+      <span class="currentIdentity" *ngIf="currentIdentity === ident; else otherIdentity">{{ident}}</span>
+      <ng-template #otherIdentity class="otherIdentity">{{ident}}</ng-template>
+    </button>
+    <button (click)="presentPopover($event)" ion-button icon-only small outline color="buttongray" id="showMore">↓</button>
+
+    <button (click)="addIdentity()" ion-button icon-only small clear color="buttongray">
+      <ion-icon ios="ios-add" md="md-add"></ion-icon>
+    </button>
+</div>
