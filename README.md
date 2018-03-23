@@ -27,3 +27,11 @@ if you don't have cnpm installed, google or check my [github blog](https://hardi
 ```console
 ionic serve
 ```
+## Demo
+You can click and change the date and mode as you wish.
+
+### Week
+<div align=center><img width="300" src="week.png"/></div>
+
+### Month
+<div align=center><img width="300" src="month.png"/></div>
